@@ -71,7 +71,7 @@ const PersonalizationSection = () => {
                   onClick={() => setActiveFeatureId(feature.id)}
                   className={`flex items-center justify-center lg:justify-start gap-4 w-full p-4 rounded-xl text-left transition-all duration-300 ${
                     activeFeatureId === feature.id
-                      ? 'shadow-neo-press bg-[#a2ff00]'
+                      ? 'shadow-neo bg-[#a2ff00]'
                       : 'shadow-neo-sm hover:shadow-neo-press'
                   }`}
                 >
