@@ -46,7 +46,7 @@ const SpotlightCard = ({ children, className }: { children: React.ReactNode; cla
   return (
     <motion.div
       onMouseMove={handleMouseMove}
-      className={`group relative p-8 rounded-3xl bg-[#181818] shadow-neo-lg transition-all duration-300 hover:scale-[1.02] ${className}`}
+      className={`group relative p-8 h-full rounded-3xl bg-[#181818] shadow-neo-lg transition-all duration-300 hover:scale-[1.02] ${className}`}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100"

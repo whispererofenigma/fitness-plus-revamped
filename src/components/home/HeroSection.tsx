@@ -73,10 +73,15 @@ const HeroSection = () => {
           whileHover="hover"
           className="text-5xl md:text-8xl font-extrabold tracking-tighter text-white"
         >
-          {headline.split('').map((char, index) => (
-            <motion.span key={index} variants={letterVariants} className="inline-block">
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
+          {/* CORRECTED: We now split by words first, then map the letters within each word */}
+          {headline.split(' ').map((word, wordIndex) => (
+            <span key={wordIndex} className="inline-block mr-4">
+              {word.split('').map((char, charIndex) => (
+                <motion.span key={charIndex} variants={letterVariants} className="inline-block">
+                  {char}
+                </motion.span>
+              ))}
+            </span>
           ))}
         </motion.h1>
 
@@ -121,4 +126,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

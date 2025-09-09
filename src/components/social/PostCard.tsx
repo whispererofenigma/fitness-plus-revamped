@@ -8,7 +8,7 @@ import { Post } from '@/lib/mock-posts'; // Import the type definition
 
 // This is the public URL for your Cloudflare R2 bucket.
 // We will append the media_key from our data to this base URL.
-const R2_PUBLIC_URL = 'https://pub-your-bucket-id.r2.dev/';
+const R2_PUBLIC_URL = process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
 
 const PostCard = ({ post }: { post: Post }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
