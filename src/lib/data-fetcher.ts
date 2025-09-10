@@ -1,7 +1,5 @@
 // src/lib/data-fetcher.ts
 
-import { createClient } from '@/utils/supabase/client';
-
 import { Database } from './supabase';
 
 // This makes our function more flexible by allowing any table name from our Database type
@@ -12,7 +10,7 @@ interface FetchOptions {
   table: TableName;
   order?: string; // The column to sort by
   ascending?: boolean;
-  tags?: string[]; // The sort direction
+  tags?: string[]; // Cache tags for revalidation
 }
 
 /**
@@ -22,29 +20,23 @@ interface FetchOptions {
  * @param {FetchOptions} options - The options for the Supabase query.
  * @returns {Promise<any[]>} A promise that resolves to an array of data from the specified table.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function fetchData({ table, order, ascending = true, tags }: FetchOptions) {
-  
-  const supabase = await createClient();
+  // Build the query params for the API route
+  const params = new URLSearchParams({
+    table,
+    ascending: ascending ? 'true' : 'false',
+  });
+  if (order) params.append('order', order);
 
-  // Start building the query
-  let query = supabase.from(table).select('*');
+  // Hit our own Next.js API route (server-side Supabase call)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data?${params.toString()}`, {
+    next: { tags: tags ?? [table] }, // <- tags go here
+  });
 
-  // If an 'order' column is specified, add it to the query
-  if (order) {
-    query = query.order(order, { ascending });
-  }
-
-  // Execute the query
-  const { data, error } = await query;
-
-  // Handle any potential errors
-  if (error) {
-    console.error(`Error fetching data from table "${table}":`, error);
-    // In a production app, you might want to throw the error or return a custom error object
+  if (!res.ok) {
+    console.error(`Error fetching data from table "${table}":`, res.statusText);
     return [];
   }
 
-  // Return the fetched data
-  return data;
+  return res.json();
 }

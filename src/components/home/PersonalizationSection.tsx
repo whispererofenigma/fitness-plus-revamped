@@ -14,7 +14,7 @@ const PersonalizationSection = async () => {
   const features = await fetchData({ 
     table: 'personalization_features', 
     order: 'created_at',
-    // tags: ['personalization_features'] // Conceptually tagging this fetch
+    tags: ['personalization_features']
   }) as Feature[];
 
   // 2. Render the outer, non-interactive shell of the section.

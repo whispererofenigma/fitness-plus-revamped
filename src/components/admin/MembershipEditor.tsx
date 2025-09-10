@@ -108,14 +108,10 @@ const MembershipEditor = ({
 
         await fetch('/api/revalidate', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                path: '/', // The path of the page to revalidate (e.g., the homepage)
-                secret: process.env.NEXT_PUBLIC_REVALIDATE_TOKEN, // Make sure to expose this as a NEXT_PUBLIC_ var
-            }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tag: 'membership_plans' }),
         });
+
     };
 
     return (

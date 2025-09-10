@@ -17,8 +17,8 @@ export type PassWithFeatures = Pass & {
 const PassesSection = async () => {
   // 1. Fetch both the passes and their features from Supabase in parallel
   const [passes, features] = await Promise.all([
-    fetchData({ table: 'access_passes', order: 'sort_order' }) as Promise<Pass[]>,
-    fetchData({ table: 'pass_features', order: 'sort_order' }) as Promise<Feature[]>
+    fetchData({ table: 'access_passes', order: 'sort_order', tags: ['access_passes'] }) as Promise<Pass[]>,
+    fetchData({ table: 'pass_features', order: 'sort_order', tags: ['pass_features'] }) as Promise<Feature[]>
   ]);
 
   // 2. Combine the data: Group the features by their corresponding pass_id
