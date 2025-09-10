@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         // This is the specific hostname from your R2 bucket.
-        hostname: 'pub-32361a86652b4a0f95ba4bed9f014ed0.r2.dev',
+        hostname: 'pub-756ec2b7368d4a42bd503306548a6f86.r2.dev',
       },
       {
         protocol: 'https',

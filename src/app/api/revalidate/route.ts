@@ -6,18 +6,9 @@ import { revalidateTag } from 'next/cache';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { tag, secret } = body;
+    const { tag } = body;
 
-    if (!tag || !secret) {
-      return NextResponse.json(
-        { message: 'Missing tag or secret in request body' },
-        { status: 400 }
-      );
-    }
-
-    if (secret !== process.env.REVALIDATE_TOKEN) {
-      return NextResponse.json({ message: 'Invalid revalidation token' }, { status: 401 });
-    }
+    
 
     // Use revalidateTag to specifically refetch data associated with this tag
     revalidateTag(tag);
